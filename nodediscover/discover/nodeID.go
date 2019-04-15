@@ -9,7 +9,7 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/linkchain/common/btcec"
+	"github.com/mihongtech/linkchain/common/btcec"
 )
 
 const NodeIDBits = 512

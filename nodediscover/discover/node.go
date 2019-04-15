@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/linkchain/common/math"
+	"github.com/mihongtech/linkchain/common/math"
 )
 
 // Node represents a host on the network.

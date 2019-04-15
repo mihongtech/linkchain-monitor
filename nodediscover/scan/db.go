@@ -2,8 +2,8 @@ package scan
 
 import (
 	"github.com/garyburd/redigo/redis"
-	"github.com/linkchain/common/util/log"
 	"github.com/mihongtech/linkchain-monitor/nodediscover/discover"
+	"github.com/mihongtech/linkchain/common/util/log"
 )
 
 func GetAllDBNodes(c redis.Conn) []string {

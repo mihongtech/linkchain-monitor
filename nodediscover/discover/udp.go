@@ -10,13 +10,12 @@ import (
 	"net"
 	"time"
 
-	"github.com/ethereum/go-ethereum/p2p/nat"
-	"github.com/linkchain/common/btcec"
-	"github.com/linkchain/common/math"
-	"github.com/linkchain/common/serialize"
-	"github.com/linkchain/common/util/log"
-	"github.com/linkchain/p2p/netutil"
-	"github.com/linkchain/protobuf"
+	"github.com/mihongtech/linkchain/common/btcec"
+	"github.com/mihongtech/linkchain/common/math"
+	"github.com/mihongtech/linkchain/common/serialize"
+	"github.com/mihongtech/linkchain/common/util/log"
+	"github.com/mihongtech/linkchain/p2p/netutil"
+	"github.com/mihongtech/linkchain/protobuf"
 )
 
 const Version = 4
@@ -179,7 +178,6 @@ type UDP struct {
 	addpending chan *pending
 	gotreply   chan reply
 	closing    chan struct{}
-	nat        nat.Interface
 	self       *Node // metadata of the local node
 }
 

@@ -9,10 +9,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/linkchain/common/util/log"
-	"github.com/linkchain/p2p/crypto"
 	"github.com/mihongtech/linkchain-monitor/nodediscover/discover"
 	"github.com/mihongtech/linkchain-monitor/nodediscover/scan"
+	"github.com/mihongtech/linkchain/common/util/log"
+	"github.com/mihongtech/linkchain/p2p/crypto"
 )
 
 var scanner *scan.NodesScan = nil
