@@ -11,7 +11,6 @@ import (
 	_ "path/filepath"
 	"time"
 
-	_ "github.com/gethctl/utils"
 	"github.com/mihongtech/linkchain/client/httpclient"
 	"github.com/mihongtech/linkchain/common/util/log"
 	"github.com/prometheus/client_golang/prometheus"
