@@ -80,7 +80,7 @@ func main() {
 		listenAddr    = flag.String("addr", ":9200", "listen address")
 		fetchInterval = flag.Int("interval", 5, "fetch interval")
 		loglevel      = flag.Int("loglevel", 3, "log level")
-		metrics       = flag.String("metrics_path", "/blockchain", "the metrics path of promethus")
+		metrics       = flag.String("metrics_path", "/device", "the metrics path of promethus")
 	)
 	flag.Parse()
 	log.Root().SetHandler(log.LvlFilterHandler(log.Lvl(*loglevel), log.StreamHandler(os.Stdout, log.TerminalFormat(true))))
