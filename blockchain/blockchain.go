@@ -41,7 +41,7 @@ func updateBlockNumber() {
 
 func main() {
 	var (
-		listenAddr    = flag.String("addr", ":9200", "listen address")
+		listenAddr    = flag.String("addr", ":9201", "listen address")
 		rpcServer     = flag.String("rpcserver", "127.0.0.1", "ethereum rpc server ip")
 		rpcPort       = flag.Int("rpcport", 8082, "ethereum rpc port")
 		rpcuser       = flag.String("rpcuser", "lc", "rpc user")
