@@ -107,3 +107,7 @@ func getFollowNodes(client prometheusClient.API, authNodes []authNode) ([]Region
 
 	return output, nil
 }
+
+func GetScanNodes(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	httpprotocol.ResponceSuccessWithBody(w, GetNodeSet())
+}

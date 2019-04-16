@@ -24,12 +24,11 @@ func startService(port int) {
 
 func main() {
 	var (
-		listenAddr  = flag.String("addr", ":30301", "listen address")
-		genKey      = flag.String("genkey", "", "generate a node key")
-		nodeKeyFile = flag.String("nodekey", "test", "private key filename")
-		verbosity   = flag.Int("verbosity", int(log.LvlInfo), "log verbosity (0-9)")
-		//bootNodes     = flag.String("bootnodes", "enode://c95cf3128951f8bf571dc95bcc7ce70db2b23f62ab15a2f9f947d0e3c17ff25583c762117630348ba31c377a26fef269f4b7c2767a1dd6c0936c05f632411513@[122.112.249.47]:40000", "bootnodes's enode")
-		bootNodes     = flag.String("bootnodes", "enode://4c113504601930bf2000c29bcd98d1716b6167749f58bad703bae338332fe93cc9d9204f08afb44100dc7bea479205f5d162df579f9a8f76f8b402d339709023@[3.122.203.99]:30301", "bootnodes's enode")
+		listenAddr    = flag.String("addr", ":30301", "listen address")
+		genKey        = flag.String("genkey", "", "generate a node key")
+		nodeKeyFile   = flag.String("nodekey", "test", "private key filename")
+		verbosity     = flag.Int("verbosity", int(log.LvlInfo), "log verbosity (0-9)")
+		bootNodes     = flag.String("bootnodes", "enode://c95cf3128951f8bf571dc95bcc7ce70db2b23f62ab15a2f9f947d0e3c17ff25583c762117630348ba31c377a26fef269f4b7c2767a1dd6c0936c05f632411513@[122.112.249.47]:40000", "bootnodes's enode")
 		redisAddress  = flag.String("redisAddress", "127.0.0.1:6379", "bootnode's enode")
 		flushDuration = flag.Int("flushDuration", 3600, "input a number (seconds)")
 		port          = flag.Int("port", 8080, "webservice port")
