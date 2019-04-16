@@ -1,0 +1,8 @@
+@media screen and (max-width: 1500px) {
+  .overview .detail li .data .txt {
+    padding: 0 20px 0 40px !important;
+  }
+  .overview .detail li .data .progress {
+    margin: 0 20px 0 40px !important;
+  }
+}
