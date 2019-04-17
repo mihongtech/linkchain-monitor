@@ -94,8 +94,12 @@ export default {
     getNode () {
       getNode()
         .then(response => {
-          this.syncNode = response.data.followNodes
-          this.authNode = response.data.authNodes
+          const {followNodes = [], authNodes = []} = response.data;
+          this.syncNode = followNodes.map((n) => {
+            n.percentage = Math.round(n.percentage * 10000) / 100;
+            return n;
+          });
+          this.authNode = authNodes;
           setTimeout(() => {
             this.loading = false
           }, 500)
