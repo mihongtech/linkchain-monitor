@@ -4,14 +4,14 @@ import (
 	_ "context"
 	"encoding/json"
 	"errors"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/garyburd/redigo/redis"
 	"io/ioutil"
 	"net/http"
 	"sync"
 	"time"
 
-	"github.com/gethctl/nodesscan/scan"
+	"github.com/garyburd/redigo/redis"
+	"github.com/mihongtech/linkchain-monitor/nodediscover/scan"
+	"github.com/mihongtech/linkchain/common/util/log"
 )
 
 type Statistics struct {

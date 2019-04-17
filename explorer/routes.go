@@ -32,4 +32,10 @@ var routes = Routes{
 		"/api/v1/explorer/linkchian/authnodes/:node",
 		GetAuthNodeDetail,
 	},
+	Route{
+		"GetScanNodes",
+		"GET",
+		"/api/v1/explorer/linkchian/scannodes",
+		GetScanNodes,
+	},
 }
