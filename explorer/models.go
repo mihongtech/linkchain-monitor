@@ -29,6 +29,7 @@ type linkchainStatus struct {
 
 type linkchainOverview struct {
 	BlockHeight     *big.Int `json:"blockHeight"`
+	AuthNodeCount   int      `json:"authNodeCount"`
 	FollowNodeCount int      `json:"followNodeCount"`
 }
 
@@ -68,30 +69,31 @@ func getPrometheusCLient(ip string, port int) (prometheusClient.API, error) {
 	return prometheusClient.NewAPI(client), nil
 }
 
-func getPrometheusBlockNumber(client prometheusClient.API) (*big.Int, error) {
+func getPrometheusBlockNumber(client prometheusClient.API) (*big.Int, int, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), Cfg.timeout*time.Second)
 	defer cancel()
 
 	start := time.Now()
 	value, err := client.Query(ctx, "latest_block_height", start)
 	if err != nil {
-		return nil, err
+		return nil, 0, err
 	}
 	end := time.Now()
 	if end.Sub(start) > Cfg.timeout*time.Second {
-		return nil, errors.New("Get Prometheus block number timeout")
+		return nil, 0, errors.New("Get Prometheus block number timeout")
 	}
 
 	if model.ValVector != value.Type() {
-		return nil, errors.New("Get Prometheus block number data type error")
+		return nil, 0, errors.New("Get Prometheus block number data type error")
 	}
 
 	if len(value.(model.Vector)) == 0 {
-		return nil, errors.New("Get Prometheus block number error")
+		return nil, 0, errors.New("Get Prometheus block number error")
 	}
 
 	blockNumber := big.NewInt(0)
-
+	allNodes := GetNodeSet()
+	followNodeCount := len(allNodes)
 	for _, data := range value.(model.Vector) {
 		number := int64(data.Value)
 		if blockNumber.Cmp(big.NewInt(number)) <= 0 {
@@ -101,8 +103,12 @@ func getPrometheusBlockNumber(client prometheusClient.API) (*big.Int, error) {
 		if !strings.Contains(instance, ":") {
 			continue
 		}
+		ip := strings.Split(instance, ":")[0]
+		if _, ok := allNodes[ip]; ok {
+			followNodeCount -= 1
+		}
 	}
-	return blockNumber, nil
+	return blockNumber, followNodeCount, nil
 }
 
 func getOSVersion(ip string) (string, error) {
@@ -154,6 +160,9 @@ func getAuthNodes(client prometheusClient.API) ([]authNode, error) {
 		output = append(output, authNode{ip, number, region})
 	}
 
+	if len(output) == 0 {
+		return output, errors.New("Can not find AuthNode")
+	}
 	return output, nil
 }
 
@@ -381,4 +390,31 @@ func getAuthNodeDetail(client prometheusClient.API, nodeIP string) (*authNodeDet
 	}
 	return &authNodeDetail{BaseInfo: authNodeBaseInfo{IP: nodeIP, OS: os, GethVersion: gethVersion, SysTime: sysTime, RunningTime: upTime, MemUsage: memUsage, CPUUsage: cpuUsage, DiskUsage: diskUsage},
 		LinkchainInfo: authNodeChainInfo{nodeBlockNumber, blockDiff}}, nil
+}
+
+func getPrometheusAuthNodeCount(client prometheusClient.API) (int, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), Cfg.timeout*time.Second)
+	defer cancel()
+	authNodeCount := 0
+	start := time.Now()
+	value, err := client.Query(ctx, "latest_block_height", start)
+	if err != nil {
+		return authNodeCount, err
+	}
+	end := time.Now()
+	if end.Sub(start) > Cfg.timeout*time.Second {
+		return authNodeCount, errors.New("Get Prometheus auth node number timeout")
+	}
+
+	if model.ValVector != value.Type() {
+		return authNodeCount, errors.New("Get Prometheus auth node data type error")
+	}
+
+	for _, data := range value.(model.Vector) {
+		time := int64(data.Value)
+		if time > 0 {
+			authNodeCount += 1
+		}
+	}
+	return authNodeCount, nil
 }

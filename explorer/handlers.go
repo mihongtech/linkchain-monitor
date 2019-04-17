@@ -67,7 +67,13 @@ func GetLinkchainOverview(w http.ResponseWriter, r *http.Request, ps httprouter.
 		return
 	}
 
-	blockNumber, err := getPrometheusBlockNumber(client)
+	blockNumber, followNodeCount, err := getPrometheusBlockNumber(client)
+	if err != nil {
+		httpprotocol.EncodeResult(w, httpprotocol.Failed(err))
+		return
+	}
+
+	authNodeCount, err := getPrometheusAuthNodeCount(client)
 	if err != nil {
 		httpprotocol.EncodeResult(w, httpprotocol.Failed(err))
 		return
@@ -76,7 +82,8 @@ func GetLinkchainOverview(w http.ResponseWriter, r *http.Request, ps httprouter.
 	// TODO: add follow node count
 	httpprotocol.EncodeResult(w, httpprotocol.SucceedWithResult(
 		linkchainStatus{Overview: linkchainOverview{BlockHeight: blockNumber,
-			FollowNodeCount: 0},
+			AuthNodeCount:   authNodeCount,
+			FollowNodeCount: followNodeCount},
 		}))
 	return
 }
