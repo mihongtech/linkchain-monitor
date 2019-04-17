@@ -36,3 +36,11 @@ export function getNodeInfo (ip) {
     method: 'get'
   })
 }
+export function getLastOneHourTransactions () {
+  return request({
+    url: `/rpc/lastHourTransactionCount`,
+    method: 'post',
+    data: {},
+    baseURL: 'http://114.116.18.94'
+  })
+}

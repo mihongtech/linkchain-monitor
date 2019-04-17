@@ -13,7 +13,7 @@
   import Loading from './common/loading'
   import Table from './common/table'
   import LineChart from './echarts/line'
-  import {getLinkChain} from '@/api/interface'
+  import {getLinkChain, getLastOneHourTransactions} from '@/api/interface'
 
   export default {
     name: 'linkchain',
@@ -39,7 +39,8 @@
       }
     },
     created() {
-      this.getLinkChain()
+      this.getTPS();
+      this.getLinkChain();
     },
     methods: {
       getLinkChain() {
@@ -60,6 +61,17 @@
             setTimeout(() => {
               this.loading = false
             }, 500)
+          })
+      },
+      getTPS() {
+        getLastOneHourTransactions()
+          .then((res) => {
+            if(res.data.count) {
+              this.overview.item.lastHourTxs.info = res.data.count;
+              this.overview.item.lastHourTxs.TPS = Math.ceil(res.data.count * 1000 / 3600) / 1000 + 'TPS';
+            }
+          })
+          .catch(() => {
           })
       }
     }
