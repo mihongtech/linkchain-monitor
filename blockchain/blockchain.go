@@ -34,6 +34,7 @@ func updateBlockNumber() {
 	blockNumber, err := GetBlockNumber()
 	if err != nil {
 		log.Error("can't get latest block number", "err", err)
+		latestBlockHeight.Set(-1)
 	} else {
 		latestBlockHeight.Set(float64(blockNumber))
 	}
