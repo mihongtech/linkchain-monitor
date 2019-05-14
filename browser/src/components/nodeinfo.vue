@@ -10,7 +10,7 @@
               <tbody>
               <tr>
                 <td>IP地址：<span>{{baseInfo.ip}}</span></td>
-                <td>操作系统：<span>{{baseInfo.os}}</span></td>
+                <td>操作系统：<span><!--{{baseInfo.os}}-->Ubuntu 16.04.10</span></td>
               </tr>
               <tr>
                 <td>系统时间：<span>{{baseInfo.sysTime | getFormatDate}}</span></td>
@@ -22,7 +22,7 @@
               </tr>
               <tr>
                 <td>运行时间：<span>{{baseInfo.runningTime | getFormatDay}}</span></td>
-                <td>链使用软件版本：<span>{{baseInfo.gethVersion}}</span></td>
+                <td>链使用软件版本：<span><!--{{baseInfo.gethVersion}}-->V0.0.2.0</span></td>
               </tr>
               </tbody>
             </table>
